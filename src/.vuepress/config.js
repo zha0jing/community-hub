@@ -96,6 +96,13 @@ module.exports = {
           sidebarDepth: 1,
         },
         {
+          title: 'Operations',
+          children: [
+            '/docs/operations/create-node.md',
+            '/docs/operations/monitoring.md'  
+          ]
+        },
+        {
           title: 'Protocol Specs',
           children: [
             '/docs/protocol/protocol.md',
