@@ -78,7 +78,7 @@ read more about this here](https://www.w3schools.com/js/js_async.asp).
 
 Both [Truffle's Ganache](https://github.com/trufflesuite/ganache-cli#custom-methods) and 
 [Hardhat](https://hardhat.org/hardhat-network/#special-testing-debugging-methods) support custom debugging methods such as `evm_snapshot` and `evm_revert`. You cannot 
-use these methods in tests for Optimistic Ethereum contracts because they are not available in geth. Nor can you use [Hardhat's `console.log`](https://hardhat.org/tutorial/debugging-with-hardhat-network.html)
+use these methods in tests for Optimistic Ethereum contracts because they are not available in geth. Nor can you use [Hardhat's `console.log`](https://hardhat.org/tutorial/debugging-with-hardhat-network.html).
 
 
 ## Creating Contracts with Safe Constructor Parameters
