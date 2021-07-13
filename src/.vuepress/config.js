@@ -100,7 +100,8 @@ module.exports = {
           children: [
             '/docs/operations/create-node.md',
             '/docs/operations/monitoring.md'  
-          ]
+          ],
+          collapsable: false
         },
         {
           title: 'Protocol Specs',
