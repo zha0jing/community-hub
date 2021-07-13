@@ -47,42 +47,7 @@ module.exports = {
         {
           title: 'Developers',
           children: [
-            {
-              title: 'Dapps for Standalone Optimistic Ethereum',
-              children: [
-                 [
-                    '/docs/developers/alone/why.md',
-                    'Why Run in Standalone Optimistic Ethereum?'
-                 ],
-                 [
-                    '/docs/developers/alone/requirements.md',
-                    'Converting Applications for Optimistic Ethernet'
-                 ],
-                 [
-                    '/docs/developers/alone/hardhat.md',
-                    'Hardhat Tooling'
-                 ],
-                 [
-                    '/docs/developers/alone/truffle.md',
-                    'Truffle Tooling'
-                 ]
-              ]
-            },
-            {
-              title: 'Multinet Dapps',
-              children: [
-                 [ '/docs/developers/multi/erc20.md',
-                   'Bridging ERC20 Tokens'
-                 ],
-                 [ '/docs/developers/multi/msgs.md',
-                   'General Purpose Bridge'
-                 ],
-                 [ '/docs/developers/multi/fees.md',
-                   'Transaction Fees'
-                 ]
-              ]
-            },
-            {
+             {
                title: 'Learning resourses',
                children: [
                  [
@@ -95,7 +60,30 @@ module.exports = {
                  ],
                  '/docs/developers/resources/talks.md',
                ]
+            },
+            {
+              title: 'Working on Optimistic Ethereum',
+              children: [
+                 '/docs/developers/alone/convert.md',
+                 '/docs/developers/alone/hardhat.md',
+                 '/docs/developers/alone/truffle.md'                 
+              ]
+            },
+            {
+              title: 'L1 <-> L2 Integration',
+              children: [
+                 [ '/docs/developers/multi/erc20.md',
+                   'Bridging ERC20 Tokens'
+                 ],
+                 [ '/docs/developers/multi/msgs.md',
+                   'Passing Messages'
+                 ],
+                 [ '/docs/developers/multi/fees.md',
+                   'Transaction Fees'
+                 ]
+              ]
             }
+
 
 /*            '/docs/developers/tooling.md',
             '/docs/developers/integration.md',

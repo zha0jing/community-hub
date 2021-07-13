@@ -1,5 +1,5 @@
 ---
-title: Hardhat Tooling
+title: Create a Network Node
 lang: en-US
 ---
 
