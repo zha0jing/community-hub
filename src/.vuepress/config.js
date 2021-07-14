@@ -40,12 +40,13 @@ module.exports = {
           children: [
             '/docs/users/metamask.md',
             '/docs/users/gateway.md',
+            '/docs/users/supported-wallets.md'
           ],
           collapsable: false,
           sidebarDepth: 3,
         },
         {
-          title: 'Developers',
+          title: 'Developer Docs',
           children: [
              {
                title: 'Learning resourses',
@@ -77,12 +78,9 @@ module.exports = {
                  ],
                  [ '/docs/developers/multi/msgs.md',
                    'Passing Messages'
-                 ],
-                 [ '/docs/developers/multi/fees.md',
-                   'Transaction Fees'
                  ]
               ]
-            }
+            },
 
 
 /*            '/docs/developers/tooling.md',
@@ -99,7 +97,8 @@ module.exports = {
           title: 'Operations',
           children: [
             '/docs/operations/create-node.md',
-            '/docs/operations/monitoring.md'  
+            '/docs/operations/monitoring.md',  
+            '/docs/developers/operations/fees.md',
           ],
           collapsable: false
         },
