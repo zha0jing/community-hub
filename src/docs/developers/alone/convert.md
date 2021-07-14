@@ -20,13 +20,17 @@ a different result.
 Optimistic Ethereum gets around this problem by using a slightly modified Solidity
 compiler. Where the standard compiler produces those opcodes, the Optimistic version
 produces a call to a different contract that provides consistent information, whether
-we are running in L1 or L2. This is the source of the restrictions on contracts:
+we are running in L1 or L2. [You can see the list of replaced opcodes 
+here](https://community.optimism.io/docs/protocol/evm-comparison.html#replaced-opcodes). 
 
+Because of this issue, and due to the fact the tests have to run on geth, there are a 
+few differences between developing contracts for L1 and developing them of Open Ethereum:
 
-1. Contracts have to be written in Solidity. We would love to provide compilers for
+-  Contracts have to be written in Solidity, in a version that already has a modified
+   compiler. We would love to provide compilers for
    Vyper and Yul, but those aren't our priority at the moment.
 
-1. Contract length limits are stricter. The length limit is still 
+-  Contract length limits are stricter. The length limit is still 
    [24 kB](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-170.md), but
    the problem opcodes are one byte long. We replace them with a contract call that 
    needs to push parameters into the stack, have the call itself, and then read the
@@ -37,7 +41,8 @@ we are running in L1 or L2. This is the source of the restrictions on contracts:
    [a library](https://docs.soliditylang.org/en/v0.8.6/contracts.html#libraries),
    which means that code would be placed in a different contract. 
    
-1. Constructor parameters. This problem results for the interaction of two factors:
+-  Constructor parameters are discouraged. They are a problem because of the 
+   interaction of two factors:
    - Optimistic Ethereum has to check that code running on the L2 chain
      does not contain any of the problem opcodes. As this is a security check, it
      has to be done by a contract on the blockchain.
@@ -56,7 +61,7 @@ we are running in L1 or L2. This is the source of the restrictions on contracts:
    https://docs.openzeppelin.com/upgrades-plugins/1.x/writing-upgradeable) contracts. Instead of putting the initialization code in the constructor, put it in an externally
    accessible function that can only be called once by the contract's creator.
 
-1. Both Hardhat and Truffle allow you to run contract tests against their own 
+-  Both Hardhat and Truffle allow you to run contract tests against their own 
    implementations of the EVM. However, to test contracts that run on Optimistic
    Ethereum you need to run them on a local copy of Optimistic Ethereum, which uses
    [geth](https://geth.ethereum.org/). 

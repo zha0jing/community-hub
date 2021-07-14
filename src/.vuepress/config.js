@@ -80,15 +80,7 @@ module.exports = {
                    'Passing Messages'
                  ]
               ]
-            },
-
-
-/*            '/docs/developers/tooling.md',
-            '/docs/developers/integration.md',
-            '/docs/developers/networks.md',
-            '/docs/developers/eth-gateway.md',
-            '/docs/developers/bridging.md',
-            '/docs/developers/fees.md', */
+            },            
           ],
           collapsable: false,
           sidebarDepth: 1,
