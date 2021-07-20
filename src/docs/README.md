@@ -12,6 +12,7 @@ tags:
 Our documentation is a rapidly improving work in progress. If you have questions or feel like something is missing feel free to ask in our [Discord server](https://discord.optimism.io) where we (and our awesome community) are actively responding, or [open an issue](https://github.com/ethereum-optimism/community-hub/issues) in the GitHub repo for this site.
 :::
 
+
 We know documentation can be a bit overwhelming sometimes, especially when the subject matter is unfamiliar.
 Let's make sure you know where to go next!
 

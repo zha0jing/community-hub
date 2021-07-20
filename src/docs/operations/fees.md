@@ -5,6 +5,11 @@ lang: en-US
 
 # {{ $frontmatter.title }}
 
+
+## Coming Soon
+
+<!--
+
 # Transaction Fees
 
 Transaction fees on Optimistic Ethereum are handled a little differently than on Ethereum.
@@ -92,3 +97,5 @@ We've been subsidizing L2 ⇒ L1 transactions and processing them on your behalf
 However, **you'll soon need to start finalizing these transactions on your own**.
 We'll provide you with all the necessary tools to do this.
 :::
+
+-->

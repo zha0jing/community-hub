@@ -3,7 +3,14 @@ title: Messaging
 lang: en-US
 ---
 
+
+
 # {{ $frontmatter.title }}
+
+
+## Coming Soon
+
+<!--
 
 Apps on Optimistic Ethereum can be made to interact with apps on Ethereum via a process called "bridging".
 In a nutshell, **contracts on Optimistic Ethereum can send messages to contracts on Ethereum, and vice versa**.
@@ -122,7 +129,7 @@ These messenger contracts, the [`OVM_L1CrossDomainMessenger`](https://github.com
 You can find the exact addresses of these contracts on our various deployments [inside of the Optimism monorepo](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/deployments/README.md).
 :::
 
-<!-- TODO: add this page to our docs too -->
+TODO: add this page to our docs too
 
 ### Caveats
 
@@ -136,7 +143,7 @@ That is, you'll be told about the result of the call right away.
 Calls between contracts on Optimistic Ethereum and Ethereum happen *asynchronously*.
 If you want to know about the result of the call, you'll have to wait for the other contract send a message back to you.
 
-<!-- TODO: do we need an example here? -->
+<!-- TODO: do we need an example here?
 
 #### Accessing `msg.sender`
 
@@ -192,3 +199,5 @@ We're open to changing the length of the window as long as we feel this can be d
 If you're strongly opinionated about this, we recommend [opening an issue on GitHub](https://github.com/ethereum-optimism/optimism/issues) explaining your position.
 We *will* hear you out!
 :::
+
+-->

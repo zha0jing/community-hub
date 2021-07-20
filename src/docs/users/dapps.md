@@ -7,7 +7,7 @@ lang: en-US
 
 ## Synthetix
 
-(logo, blurb, screeshot..),
+**Coming Soon**
 
 ## Uniswap 
 
