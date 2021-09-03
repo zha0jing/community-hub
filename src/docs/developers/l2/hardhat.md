@@ -5,49 +5,28 @@ lang: en-US
 
 # {{ $frontmatter.title }}
 
-::: tip
-For more detailed step by step instructions [check out the hardhat tutorial](https://github.com/ethereum-optimism/optimism-tutorial/tree/main/hardhat).
-:::
+To use Optimistic Ethreum from Hardhat, simply connect either to 
+[a local development node](dev-node.html), [the Goerli test network, or the
+production network](http://localhost:8080/docs/infra/networks.html).
 
-## Installation
+## Setup 
 
-All you need to start building apps for Optimistic Ethereum with [hardhat](https://hardhat.org) is the `@eth-optimism/hardhat-ovm` package.
-Install it via `npm` or `yarn`:
+Add an `optimistic` network to your exported config:
 
-```sh
-yarn add @eth-optimism/hardhat-ovm
-```
-
-## Configuration
-
-You'll need to make the following two changes to `hardhat.config.js`:
-
-1. Import the plugin:
-
-   ```javascript
-   // hardhat.config.js
+```javascript
+...
+module.exports = {
    ...
-   require('@eth-optimism/hardhat-ovm')
+   networks: {
    ...
-   ```
+      optimistic: {
+         url: 'http://127.0.0.1:8545', // this is the default port
+         accounts: { mnemonic: 'test test test test test test test test test test test junk' }
 
-1. Add an `optimistic` network to your exported config:
-
-   ```javascript
-   ...
-   module.exports = {
-      ...
-      networks: {
-         ...
-         optimistic: {
-            url: 'http://127.0.0.1:8545', // this is the default port
-            accounts: { mnemonic: 'test test test test test test test test test test test junk' },
-            gasPrice: 15000000, // required
-            ovm: true // required
-         }
       }
-      ...
    }
+   ...
+}
       
    ```
 
