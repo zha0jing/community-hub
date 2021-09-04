@@ -5,7 +5,7 @@ lang: en-US
 
 # {{ $frontmatter.title }}
 
-## Optimistic Kovan
+## Optimistic Goerli
 
 ::: tip Purpose
 This is our **test** network. You're welcome to deploy whatever contracts to wish to test
@@ -14,7 +14,7 @@ here.
 
 | Parameter | Value |
 | --------- | ----- |
-| Network Name | **`Optimistic Kovan`** |
+| Network Name | **`Optimistic Goerli`** |
 | Description | **`Testnet (public)`** |
 | Currency | **`Ether (ETH)`**
 | Chain ID | **`69`** |

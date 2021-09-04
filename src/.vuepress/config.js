@@ -94,8 +94,7 @@ module.exports = {
               // more advanced topics such as RPC and Block Time
               children: [
                 '/docs/developers/l2/dev-node.md',
-                '/docs/developers/l2/hardhat.md',
-                '/docs/developers/l2/truffle.md',
+                '/docs/developers/l2/dev-env.md',
                 '/docs/developers/l2/convert.md',
                 '/docs/developers/l2/deploy.md',
                 '/docs/developers/l2/future.md',
