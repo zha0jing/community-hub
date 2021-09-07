@@ -96,7 +96,7 @@ module.exports = {
                 '/docs/developers/l2/dev-node.md',
                 '/docs/developers/l2/dev-env.md',
                 '/docs/developers/l2/convert.md',
-                '/docs/developers/l2/deploy.md',
+                '/docs/developers/l2/workflow.md',
                 '/docs/developers/l2/future.md',
                 '/docs/developers/l2/contracts.md',
                 '/docs/developers/l2/block-time.md',
@@ -141,7 +141,6 @@ module.exports = {
           title: 'Protocol Specs',
           children: [
             '/docs/protocol/protocol.md',
-            '/docs/protocol/evm-comparison.md',
             '/docs/protocol/protocol-readings.md',
           ],
           collapsable: false,

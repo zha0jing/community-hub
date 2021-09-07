@@ -152,19 +152,17 @@ lists of:
 The chain is composed of the following concrete contracts:
 <!-- [concrete contracts][stackex]: -->
 
-### [`OVM_CanonicalTransactionChain`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/chain/OVM_CanonicalTransactionChain.sol) (CTC)
+### [`OVM_CanonicalTransactionChain`](https://github.com/ethereum-optimism/optimism/blob/experimental/packages/contracts/contracts/L1/rollup/OVM_CanonicalTransactionChain.sol) (CTC)
 
 The Canonical Transaction Chain (CTC) contract is an append-only log of transactions which must be applied to the OVM state. It defines the ordering of transactions by writing them to the `CTC:batches` instance of the Chain Storage Container. The CTC also allows any account to `enqueue()` an L2 transaction, which the Sequencer must  eventually append to the rollup state.
 
-### [`OVM_StateCommitmentChain`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/chain/OVM_StateCommitmentChain.sol) (SCC)
+### [`OVM_StateCommitmentChain`](hhttps://github.com/ethereum-optimism/optimism/blob/experimental/packages/contracts/contracts/L1/rollup/OVM_StateCommitmentChain.sol) (SCC)
 
 The State Commitment Chain (SCC) contract contains a list of proposed state roots which Proposers assert to be a result of each transaction in the Canonical Transaction Chain (CTC). Elements here have a 1:1 correspondence with transactions in the CTC, and should be the unique state root calculated off-chain by applying the canonical transactions one by one.
 
-### [`OVM_ChainStorageContainer`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/chain/OVM_ChainStorageContainer.sol)
+### [`OVM_ChainStorageContainer`](https://github.com/ethereum-optimism/optimism/blob/experimental/packages/contracts/contracts/L1/rollup/OVM_ChainStorageContainer.sol)
 
 Provides reusable storage in the form of a "Ring Buffer" data structure, which will overwrite storage slots that are no longer needed. There are three Chain Storage Containers deployed, two are controlled by the CTC, one by the SCC.
-
-<!-- [stackex]: TODO - create a stackexchange Q and A, to make this term real. -->
 
 ## Transaction Challenge Contracts
 
@@ -264,10 +262,10 @@ here](/docs/developers/bridge/messaging.html)
 
 The Bridge is composed of the following concrete contracts:
 
-### [`OVM_L1CrossDomainMessenger`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/bridge/messaging/OVM_L1CrossDomainMessenger.sol)
+### [`OVM_L1CrossDomainMessenger`](https://github.com/ethereum-optimism/optimism/blob/experimental/packages/contracts/contracts/L1/messaging/OVM_L1CrossDomainMessenger.sol)
 The L1 Cross Domain Messenger (L1xDM) contract sends messages from L1 to L2, and relays messages from L2 onto L1. In the event that a message sent from L1 to L2 is rejected for exceeding the L2 epoch gas limit, it can be resubmitted via this contract's replay function.
 
-### [`OVM_L2CrossDomainMessenger`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/bridge/messaging/OVM_L2CrossDomainMessenger.sol)
+### [`OVM_L2CrossDomainMessenger`](https://github.com/ethereum-optimism/optimism/blob/experimental/packages/contracts/contracts/L2/messaging/OVM_L2CrossDomainMessenger.sol)
 The L2 Cross Domain Messenger (L2xDM) contract sends messages from L2 to L1, and is the entry point for L2 messages sent via the L1 Cross Domain Messenger.
 
 
@@ -281,11 +279,11 @@ Optimistic Ethereum tokens and releases the locked L1 tokens. [More details
 are here](/docs/developers/bridge/standard-bridge.html)
 
 
-### [`OVM_L1StandardBridge`](https://github.com/ethereum-optimism/optimism/blob/master/packages/contracts/contracts/optimistic-ethereum/OVM/bridge/tokens/OVM_L1StandardBridge.sol)
+### [`OVM_L1StandardBridge`](https://github.com/ethereum-optimism/optimism/blob/experimental/packages/contracts/contracts/L1/messaging/OVM_L1StandardBridge.sol)
 The L1 part of the Standard Bridge. Responsible for finalising withdrawals from L2 and initiating deposits into L2 of ETH and compliant ERC20s.
 
 
-### [`OVM_L2StandardBridge`](https://github.com/ethereum-optimism/optimism/blob/master/packages/contracts/contracts/optimistic-ethereum/OVM/bridge/tokens/OVM_L2StandardBridge.sol)
+### [`OVM_L2StandardBridge`](https://github.com/ethereum-optimism/optimism/blob/experimental/packages/contracts/contracts/L2/messaging/OVM_L2StandardBridge.sol)
 The L2 part of the Standard Bridge. Responsible for finalising deposits from L1 and initiating withdrawals from L2 of ETH and compliant ERC20s.
 
 

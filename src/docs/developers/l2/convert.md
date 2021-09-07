@@ -27,6 +27,13 @@ and the Optimistic Virtual Machine (OVM)
 | GASPRICE   | `tx.gasprice`      | Returns 0 |
 | SELFDESTRUCT |                  | No operation |
 | BASEFEE    | `block.basefee`    | Not supported for now (Optimistic Ethereum is Berlin, not London, at present) |
+| NUMBER     | `block.number`     | L2 block number |
+| TIMESTAMP  | `block.timestamp`  | Timestamp of latest verified L1 block |
+| L1MESSAGESENDER | `assembly { solidityVariableName := verbatim_0i_1o("0x4A")}` | The address of the message sender on L1 |
+| L1BLOCKNUMBER | | |
+
+
+# NEED THE OPCODE FOR L1BLOCKNUMBER, which will probably appear [here eventually](https://github.com/ethereum-optimism/optimism/blob/experimental/l2geth/core/vm/opcodes.go)
 
 ### Tests need to run on geth
 
@@ -38,22 +45,3 @@ rather than an EVM running inside your development environment:
 
 1. Tests will take longer. For development purposes, Geth is quite a bit slower than the [Hardhat](https://hardhat.org) EVM or Truffle's [ganache](https://github.com/trufflesuite/ganache-cli). You will likely have to make more liberal use of [asynchronous](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Concepts) functions within your tests.
 2. Both [Truffle](https://github.com/trufflesuite/ganache-cli#custom-methods) and [Hardhat](https://hardhat.org/hardhat-network/#special-testing-debugging-methods) support custom debugging methods such as `evm_snapshot` and `evm_revert`. You cannot use these methods in tests for Optimistic Ethereum contracts because they are not available in geth. Nor can you use [Hardhat's `console.log`](https://hardhat.org/tutorial/debugging-with-hardhat-network.html).
-
-
-## Workflow
-
-Roughly speaking, these are the steps you need to take to develop for Optimistic
-Ethereum:
-
-1. Develop the decentralized application normally.
-1. [Create an Optimistic Ethereum development node](/docs/developers/l2/dev-node.html)
-1. Run your tests on the Optimistic Ethereum development node you created.
-1. Deploy your dapp to the [Optimistic 
-   Goerli](/docs/infra/networks.html#optimistic-goerli) network and test it in that
-   environment.
-1. Upload and verify the contracts' source code on Optimistic Goerli 
-   Etherscan
-1. [Ask to be added to the Optimistic Ethereum whitelist](https://docs.google.com/forms/d/e/1FAIpQLSdKyXpXY1C4caWD3baQBK1dPjEboOJ9dpj9flc-ursqq8KU0w/viewform)    
-1. Once added, deploy your contracts to the 
-   [Optimistic Ethereum](/docs/infra/networks.html#optimistic-ethereum) network. Then, upload and 
-   verify your contracts' source code on [Optimistic Etherscan](https://optimistic.etherscan.io/verifyContract).
