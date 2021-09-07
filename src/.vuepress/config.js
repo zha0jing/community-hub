@@ -99,7 +99,6 @@ module.exports = {
                 '/docs/developers/l2/workflow.md',
                 '/docs/developers/l2/future.md',
                 '/docs/developers/l2/contracts.md',
-                '/docs/developers/l2/block-time.md',
                 '/docs/developers/l2/rpc.md',
               ],
               collapsable: false,
