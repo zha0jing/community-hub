@@ -9,7 +9,7 @@ Optimistic networks appear identical to normal Ethereum, so whatever development
 environment you use, you just need to configure new networks. These networks can be:
 
 * [A local development node](dev-node.html)
-* [The Goerli test network](/docs/infra/networks.html#optimistic-goerli)
+* [The Kovan test network](/docs/infra/networks.html#optimistic-kovan)
 * [The production network](/docs/infra/networks.html#optimistic-ethereum)
 
 ## Hardhat

@@ -17,7 +17,7 @@ Ethereum:
 1. [Create an Optimistic Ethereum development node](/docs/developers/l2/dev-node.html)
 1. Run your tests on the Optimistic Ethereum development node you created.
 1. Deploy your dapp to the [Optimistic 
-   Goerli](/docs/infra/networks.html#optimistic-goerli) network and test it in that
+   Kovan](/docs/infra/networks.html#optimistic-kovan) network and test it in that
    environment.
 1. [Ask to be added to the Optimistic Ethereum whitelist](https://docs.google.com/forms/d/e/1FAIpQLSdKyXpXY1C4caWD3baQBK1dPjEboOJ9dpj9flc-ursqq8KU0w/viewform)    
 1. Once added, deploy your contracts to the 
