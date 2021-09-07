@@ -19,12 +19,6 @@ Ethereum:
 1. Deploy your dapp to the [Optimistic 
    Goerli](/docs/infra/networks.html#optimistic-goerli) network and test it in that
    environment.
-<!-- 1. Upload and verify the contracts' source code on Optimistic Goerli 
-   Etherscan -->
 1. [Ask to be added to the Optimistic Ethereum whitelist](https://docs.google.com/forms/d/e/1FAIpQLSdKyXpXY1C4caWD3baQBK1dPjEboOJ9dpj9flc-ursqq8KU0w/viewform)    
 1. Once added, deploy your contracts to the 
    [Optimistic Ethereum](/docs/infra/networks.html#optimistic-ethereum) network. 
-<!-- 1. Upload and 
-   verify your contracts' source code on [Optimistic Etherscan](https://optimistic.etherscan.io/verifyContract)
-   -->
-   
