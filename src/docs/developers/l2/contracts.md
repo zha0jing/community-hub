@@ -62,7 +62,7 @@ const contract = getL1ContractData("mainnet").OVM_CanonicalTransactionChain; // 
 const { getL2ContractData } = require("@eth-optimism/contracts");
 
 // Returns an ethers.Contract object at the correct address
-const contract = getL2ContractData().OVM_ETH; // or whatever contract
+const contract = getL2ContractData().OVM_L2StandardBridge; // or whatever contract
 ```
 
 #### `predeploys`
@@ -71,5 +71,5 @@ const contract = getL2ContractData().OVM_ETH; // or whatever contract
 const { predeploys } = require("@eth-optimism/contracts");
 
 // Returns an address (string)
-const ovmETHAddress = predeploys.OVM_ETH; // or whatever contract
+const ovmETHAddress = predeploys.OVM_L2StandardBridge; // or whatever contract
 ```
