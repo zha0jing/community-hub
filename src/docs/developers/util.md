@@ -14,20 +14,6 @@ The list of Optimism contracts and their addresses is available
 [in the monorepo](https://github.com/ethereum-optimism/optimism/tree/develop/packages/contracts/deployments). You can also read [additional information 
 here](/docs/protocol/protocol.html).
 
-### Wrapped Eth
-
-This is the ERC-20 token that is used for gas in Optimistic Ethereum. 
-You can read how to use ERC-20 tokens 
-[here](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/).
-
-[Source](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/predeploys/OVM_ETH.sol)
-
-
-| Network             | Address |
-| ------------------- | ------- |
-| Optimistic Ethereum | [0x4200000000000000000000000000000000000006](https://optimistic.etherscan.io/address/0x4200000000000000000000000000000000000006) |
-| Optimistic Kovan    | [0x4200000000000000000000000000000000000006](https://kovan-optimistic.etherscan.io/address/0x4200000000000000000000000000000000000006) |
-
 
 ### L2 Standard Token Factory
 
