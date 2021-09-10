@@ -8,28 +8,6 @@ tags:
 
 # {{ $frontmatter.title }}
 
-<!-- This comment string does not appear in the rendered html, so it can be used for making notes.
-The following is a list of useful references that can be used in writing this doc:
-
-- [ToB audit brief](https://docs.google.com/document/d/1SA8-5f73I9G8wDDfwCGLojhY0fmK-0kM2B5-YVqv2Co/edit#)
-- [OZ audit brief](https://docs.google.com/document/d/1obZqFlyVLX93HnN6Hpibah4NHa4bZ3QcoZgRQm96UU0/edit#heading=h.ene4josc1vb4)
-- [OVM post on Medium](https://medium.com/plasma-group/ethereum-smart-contracts-in-l2-optimistic-rollup-2c1cef2ec537)
-- [gakonst post](https://research.paradigm.xyz/optimism)
-
-These are some great documentation sites for inspiration:
-
-- [uniswap docs](https://uniswap.org/docs/v2/protocol-overview/how-uniswap-works/)
-- [0x docs](https://0x.org/docs/core-concepts#networked-liquidity)
-
-
-[gak]: https://docs.google.com/document/d/1GeoPBezX-CT9dGgwFHCW6kCjmcUQH9oARBLbgLooOBc/edit#heading=h.whebpifa90c9
-[vyper]: https://vyper.readthedocs.io/en/v0.1.0-beta.6/#principles-and-goals
-[aave]: https://docs.aave.com/developers/deployed-contracts
-
-
-**remove all content above this line before publishing**
--->
-
 ::: tip Work in Progress™
 _Our documentation is a rapidly improving work in progress. If you have questions or feel like something is missing feel free to ask in our [Discord server](https://discord.optimism.io) where we (and our awesome community) are actively responding, or [open an issue](https://github.com/ethereum-optimism/community-hub/issues) in the GitHub repo for this site._
 :::
@@ -54,59 +32,6 @@ With very few exceptions,
 existing Solidity smart contracts can run on L2 exactly how they run on L1.
 Similarly, off-chain code (ie. UIs and wallets), should be able to interact with L2 contract with little more than an updated RPC endpoint.
 
-<!-- ### Design Philosophy
-
-// [ref](https://docs.google.com/presentation/d/1_hMomfXES3jhpPxKhV-4tydPwjJ6CUYU49eylDFY1ek/edit?ts=6021777a#slide=id.ga4c51e44d5_1_207)
-
-We've designed our protocol with the following principles in mind:
-
-- Pragmatism:
-  - We aren't seeking to reinvent the wheel, or to develop the a...
-- Collaboration:
-  - Dev in the open
-  - lean heavily into ETH1.x
-- Iteration:
-  - Learn from Community
-  - Work with Community
-
-
-- Developer Experience:
-- Compatibility with Layer 1 Ethereum: ... -->
-
-<!-- ## Overview of the Optimistic Ethereum Roll Up
-
-Fraud proofs:
-
-Sandboxing/containerization
-
-The core of OE is the Optimistic Virtual Machine (OVM), which uses a containerization model enabling smart contract execution to
-run on Layer
-
-occur natively during a dispute on L1, but in such a way that the execution has non-interference with any external L1 state.  Verifying that this holds true is our main goal with this audit--effectively, proving that the execution sandbox we have created cannot be escaped.
-yar -->
-<!--
-### Similarities and differences between Ethereum and Optimistic Ethereum
-
-### OVM vs. EVM
-
-The OVM
-
-
-#### No native token
-
-Ethereum has Ether, and every Ethereum account has a balance (possibly zero) in Ether. Conversely OE has a built-in ERC20 compatible Wrapped Ether (WETH) token. EVM  -->
-
-<!--
-### Key Concepts
-
-_// John: Putting this here for now, we may or may not need this section, but I like how 0x uses it_.
-
-- Batches
-- Queue
-- Layer 1 and Layer 2: What do we mean by L1 and L2? Is there better terminology for this? Can we say EVM and OVM instead?
-- Sequencer
-- Sandboxing
- -->
 
 
 ## System Overview
@@ -115,7 +40,6 @@ The smart contracts in the Optimistic Ethereum (OE) protocol can be separated in
 
 - **[Chain:](#chain-contracts)** Contracts on layer-1, which hold the ordering of layer-2 transactions, and commitments to the associated layer-2 state roots.
 - **[Transaction result challenges:](#transaction-challenge-contracts)** Contracts on layer-1 which implement the process for challenging a transaction result.
-- **[Execution:](#execution-contracts)** Contracts which implement the Optimistic Virtual Machine.
 - **[Bridge:](#bridge-contracts)** Contracts which facilitate message passing between layer-1 and layer-2.
 - **[Predeploys:](#predeployed-contracts)** A set of essential contracts which are deployed and available in the genesis state of the system. These contracts are similar to Ethereum's precompiles, however they are written in Solidity, and can be found at addresses prefixed with 0x42.
 - **[Accounts:](#account-contracts)** Redeployable contracts layer-2 contracts which can represent a user and provide a form of 'account abstraction'.
@@ -188,64 +112,6 @@ Used by the Fraud verifier to create a unique State Transitioner for each challe
 <!-- - (TODO: are factories even worth including?) -->
 
 
-## Execution Contracts
-
-<!-- John TODO:
-**Planned section outline**
-- Example execution trace through the OVM starting from `run`
-- State Management L1/L2 differences
-- Explicit list of opcodes that are replaced -->
-
-The Execution contracts implement the Optimistic Virtual Machine, or OVM. Importantly, these contracts
-must execute in the same deterministic manner, whether a transaction is run on Layer 2, or Layer 1 (during a challenge).
-
-### [`OVM_ExecutionManager`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/execution/OVM_ExecutionManager.sol)
-The Execution Manager (EM) is the core of our OVM implementation, and provides a sandboxed environment allowing us to execute OVM transactions deterministically on either Layer 1 or Layer 2. The EM's run() function is the first function called during the execution of any transaction on L2. For each context-dependent EVM operation the EM has a function which implements a corresponding OVM operation, which will read state from the State Manager contract. The EM relies on the Safety Checker to verify that code deployed to Layer 2 does not contain any context-dependent operations.
-
-### [`OVM_SafetyChecker`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/execution/OVM_SafetyChecker.sol)
-The Safety Checker verifies that contracts deployed on L2 do not contain any "unsafe" operations. An operation is considered unsafe if it would access state variables which are specific to the environment (ie. L1 or L2) in which it is executed, as this could be used to "escape the sandbox" of the OVM, resulting in non-deterministic challenges. That is, an attacker would be able to challenge an honestly applied transaction. Note that a "safe" contract requires opcodes to appear in a particular pattern; omission of "unsafe" opcodes is necessary, but not sufficient.
-
-The following opcodes are disallowed:
-
-- `ADDRESS`
-- `BALANCE`
-- `ORIGIN`
-- `EXTCODESIZE`
-- `EXTCODECOPY`
-- `EXTCODEHASH`
-- `BLOCKHASH`
-- `COINBASE`
-- `TIMESTAMP`
-- `NUMBER`
-- `DIFFICULTY`
-- `GASLIMIT`
-- `GASPRICE`
-- `CREATE`
-- `CREATE2`
-- `CALLCODE`
-- `DELEGATECALL`
-- `STATICCALL`
-- `SELFDESTRUCT`
-- `SELFBALANCE`
-- `SSTORE`
-- `SLOAD`
-- `CHAINID`
-- `CALLER`*
-- `CALL`*
-- `REVERT`*
-
-\* The `CALLER`, `CALL`, and `REVERT` opcodes are also disallowed, except in the special case that they appear as part of one of the following strings of bytecode:
-
-1. `CALLER PUSH1 0x00 SWAP1 GAS CALL PC PUSH1 0x0E ADD JUMPI RETURNDATASIZE PUSH1 0x00 DUP1 RETURNDATACOPY RETURNDATASIZE PUSH1 0x00 REVERT JUMPDEST RETURNDATASIZE PUSH1 0x01 EQ ISZERO PC PUSH1 0x0a ADD JUMPI PUSH1 0x01 PUSH1 0x00 RETURN JUMPDEST`
-2. `CALLER POP PUSH1 0x00 PUSH1 0x04 GAS CALL`
-
-Opcodes which are not yet assigned in the EVM are also disallowed.
-
-### [`OVM_StateManager`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/execution/OVM_StateManager.sol)
-The State Manager contract holds all storage values for contracts in the OVM. It can only be written to by the Execution Manager and State Transitioner. It runs on L1 during the setup and execution of a challenge. The same logic runs on L2, but has been implemented as a precompile in the L2 go-ethereum client.
-
-### [`OVM_StateManagerFactory`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/execution/OVM_StateManagerFactory.sol)
-The State Manager Factory is called by a State Transitioner's init code, to create a new State Manager for use in the challenge process.
 
 ## Bridge Contracts
 
@@ -332,20 +198,10 @@ data as CALLDATA on L1).
 The L2 part of the Standard Bridge. Responsible for finalising deposits from L1 and initiating withdrawals from L2 of ETH and compliant ERC20s.
 See [Standard Bridge](/docs/developers/bridge/standard-bridge.html) for details.
 
-### [`OVM_ExecutionManagerWrapper`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/predeploys/OVM_ExecutionManagerWrapper.sol)
-This is the one contract on L2 that can call another contract without having to
-go through virtualization. It is used to call 
-[OVM_ExecutionManager](#ovm-executionmanager).
-
-
 ### [`ERC1820Registry`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/predeploys/ERC1820Registry.sol)
 [ERC1820](https://eips.ethereum.org/EIPS/eip-1820) specifies a registry
 service that lets addresses report what interfaces they support and ask 
 about other addresses. 
-
-### [`Lib_AddressManager`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/libraries/resolver/Lib_AddressManager.sol)
-This is a library that stores the mappings between names and their addresses.
-It is used by [`OVM_L1CrossDomainMessenger`](#ovm-l1crossdomainmessenger).
 
 ### [`OVM_ExecutionManagerWrapper`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/predeploys/OVM_ExecutionManagerWrapper.sol)
 This is the one contract on L2 that can call another contract without having to
@@ -379,5 +235,3 @@ OVM Account contracts are redeployable contracts layer-2 contracts which can rep
 ### [`OVM_ProxyEOA`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/predeploys/OVM_ProxyEOA.sol)
 The Proxy EOA contract uses a delegate call to execute the logic in an implementation contract. In combination with the logic implemented in the ECDSA Contract Account, this enables a form of upgradable  'account abstraction' on layer 2.
 
-### [`OVM_ECDSAContractAccount`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/predeploys/OVM_ECDSAContractAccount.sol)
-The ECDSA Contract Account contract can be used as the implementation for a ProxyEOA deployed by the ovmCREATEEOA operation. It enables backwards compatibility with Ethereum's Layer 1, by  providing eth_sign and EIP155 formatted transaction encodings.

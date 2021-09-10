@@ -21,9 +21,9 @@ and the Optimistic Virtual Machine (OVM)
 
 | EVM Opcode  | Solidity equivalent | OVM Behavior |
 | - | - | - |
-| COINBASE	 | `block.coinbase`   | Returns 0 |
+| COINBASE	 | `block.coinbase`   | Value is set by the sequencer. For the near-term future, it will return the `OVM_SequencerFeeVault` address (currently `0x420...011`) |
 | DIFFICULTY | `block.difficulty` | Returns 0 |
-| BLOCKHASH	 | `blockhash`        |	Returns 0 |
+| BLOCKHASH	 | `blockhash`        |	The L2 block hash. Note that this value can be manipulated by the sequencer and is **not** a safe source of randomness. |
 | GASPRICE   | `tx.gasprice`      | Returns 0 |
 | SELFDESTRUCT |                  | No operation |
 | BASEFEE    | `block.basefee`    | Not supported for now (Optimistic Ethereum is Berlin, not London, at present) |
