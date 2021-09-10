@@ -7,20 +7,24 @@ lang: en-US
 
 ## Fees in a nutshell
 
-Fees on Optimistic Ethereum are, for the most part, significantly lower than on the Ethereum mainnet.
-Depending on a combination of L1 congestion, L2 congestion, and the type of transaction you're sending, your L2 transaction fee might be anywhere between **2x and 100x cheaper than on L1**.
-[Check out this blog post by Optimism](https://optimismpbc.medium.com/what-to-expect-when-eths-expecting-part-1-9bb5cbccb7c1) for more information about what sort of fees you can expect to pay on Optimistic Ethereum.
+Fees on Optimistic Ethereum are, for the most part, significantly 
+lower than on the Ethereum mainnet. Every Optimistic Ethereum
+transaction has two costs:
 
-## What to know about gas on L2
+1. **L2 execution fee**. This fee is `tx.gasLimit * l2gasUsed`, 
+   where `l2gasUsed ≤ tx.gasLimit`. This is similar to the L1 cost, but
+   **much** lower (unless Optimistic Ethereum congestion is extremely high). [You 
+   can see the current cost here](https://public-grafana.optimism.io/d/9hkhMxn7z/public-dashboard?orgId=1&refresh=5m). User interfaces such
+   as wallets communicate this cost the way they communicate the
+   transaction cost in L1.
 
-Just like on L1, Optimistic Ethereum transaction fees are governed by two inputs:
-1. **Gas limit:** the total amount of gas you're willing to pay for within the transaction.
-1. **Gas price:** the price (in wei) per unit gas that you use in the transaction.
+   At writing the L2 gas cost in 0.001 gwei, and about 80,000 L2 gas cost the same 
+   as one L1 gas.
 
-However, Optimistic Ethereum currently uses these parameters in a manner slightly different than the Ethereum mainnet.
-Please keep the following in mind when using Optimistic Ethereum:
-1. Transactions are processed on a first-in-first-out basis. **You should never modify the gas price provided to you by an application.** Increasing your gas price has no impact on the speed at which your transaction will be executed.
-2. At the moment, we use the gas limit to encode information about both the cost to execute the transaction on L2 and the cost to publish the transaction on L1. **You should never modify the gas limit provided to you by an application.** Modifying your gas limit will likely cause your transaction to be rejected.
+2. **L1 security fee**. This is the cost of storing the transaction's 
+   data on L1. This cost is deducted from your Optimistic Ethereum 
+   Ether balance automatically. We are working with wallet and other
+   user interface developers to show it to the user as well.
 
-Curious to know more about how all of this works under the hood?
-Check out our [dedicated page explaining gas costs on L2](/docs/developers/fees.md).
+For more information about this subject, 
+[see here](/docs/developers/fees.html).
