@@ -98,18 +98,9 @@ In brief: If a proposed state root is not the correct result of executing a tran
 
 The challenge system is composed of the following concrete contracts:
 
-### [`OVM_FraudVerifier`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/verification/OVM_FraudVerifier.sol)
-The Fraud Verifier contract coordinates the entire challenge verification process. If the challenge is successful it prunes any state batches from State Commitment Chain which were published after and including the state root in question.
-
 ### [`OVM_BondManager`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/verification/OVM_BondManager.sol)
 The Bond Manager contract handles deposits in the form of an ERC20 token from bonded Proposers. It also handles the accounting of gas costs spent by a Verifier during the course of a challenge. In the event of a successful challenge, the faulty Proposer's bond is slashed, and the Verifier's gas costs are refunded.
 
-### [`OVM_StateTransitioner`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/verification/OVM_StateTransitioner.sol)
-The State Transitioner coordinates the execution of a state transition during the evaluation of a challenge. It feeds verified input to the Execution Manager's run(), and controls a State Manager (which is uniquely created for each challenge). Once a challenge has been initialized, this contract is provided with the pre-state root and verifies that the OVM storage slots committed to the State Manager are contained in that state. This contract controls the State Manager and Execution Manager, and uses them to calculate the post-state root by applying the transaction. The Fraud Verifier can then check the correctness of a result by comparing the calculated post-state root with the proposed post-state root.
-
-### [`OVM_StateTransitionerFactory`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/verification/OVM_StateTransitionerFactory.sol)
-Used by the Fraud verifier to create a unique State Transitioner for each challenge.
-<!-- - (TODO: are factories even worth including?) -->
 
 
 
@@ -153,14 +144,6 @@ The L1 part of the Standard Bridge. Responsible for finalising withdrawals from 
 The L2 part of the Standard Bridge. Responsible for finalising deposits from L1 and initiating withdrawals from L2 of ETH and compliant ERC20s.
 
 
-<!--
-JM scribbles:
-Proving fraud against a crossDomain message with a false account for **l1TxOrigin**:
-
-- All L1 to L2 messages must be passed via `enqueue` in the CTC. This records `msg.sender` in the enqueued tx hash.
-- Recall that each transitioner has a specific txHash, and state root.
-- During a fraud proof, the verifier must provide the transaction data to `applyTransaction()`, and the transitioner just checks that the hashes match. -->
-
 ## Predeployed Contracts
 
 "Predeploys" are a set of essential L2 contracts which are deployed and available in the genesis state of the system. These contracts are similar to Ethereum's precompiles, however they are written in Solidity, and can be found in the OVM at addresses prefixed with 0x42.
@@ -175,18 +158,9 @@ The Deployer Whitelist is a temporary predeploy used to provide additional safet
 ### [`OVM_ETH`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/predeploys/OVM_ETH.sol)
 The ETH predeploy provides an ERC20 interface for ETH deposited to Layer 2. 
 
-### [`OVM_L1MessageSender`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/predeploys/OVM_L1MessageSender.sol)
-The L1MessageSender is a predeployed contract running on L2.
-During the execution of cross domain transaction from L1 to L2, it returns the address of the L1 account (either an EOA or contract) which sent the message to L2 via the Canonical Transaction Chain's `enqueue()` function.
-This contract exclusively serves as a getter for the `ovmL1TXORIGIN` operation.
-This is necessary because there is no corresponding EVM opcode which the optimistic solidity compiler could replace with a call to the ExecutionManager's `ovmL1TXORIGIN()` function.
-That is, if a contract on L2 wants to know which L1 address initiated a call on L2, the way to do it is by calling `OVM_L1MessageSender.ovmL1TXORIGIN()`.
 
 ### [`OVM_L2ToL1MessagePasser`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/predeploys/OVM_L2ToL1MessagePasser.sol)
 The L2 to L1 Message Passer is a utility contract which facilitate an L1 proof of the  of a message on L2. The L1 Cross Domain Messenger performs this proof in its _verifyStorageProof function, which verifies the existence of the transaction hash in this  contract's `sentMessages` mapping.
-
-### [`OVM_SequencerEntrypoint`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/predeploys/OVM_SequencerEntrypoint.sol)
-The Sequencer Entrypoint is a predeploy which, despite its name, can in fact be called by  any account. It accepts a more efficient compressed calldata format, which it decompresses and  encodes to the standard EIP155 transaction format. This contract is the implementation referenced by the Proxy Sequencer Entrypoint, thus enabling the Optimism team to upgrade the decompression of calldata from the Sequencer.
 
 ### [`OVM_SequencerFeeVault`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/predeploys/OVM_SequencerFeeVault.sol)
 This contract holds fees paid to the sequencer until there is enough to 
@@ -198,40 +172,6 @@ data as CALLDATA on L1).
 The L2 part of the Standard Bridge. Responsible for finalising deposits from L1 and initiating withdrawals from L2 of ETH and compliant ERC20s.
 See [Standard Bridge](/docs/developers/bridge/standard-bridge.html) for details.
 
-### [`ERC1820Registry`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/predeploys/ERC1820Registry.sol)
-[ERC1820](https://eips.ethereum.org/EIPS/eip-1820) specifies a registry
-service that lets addresses report what interfaces they support and ask 
-about other addresses. 
-
-### [`OVM_ExecutionManagerWrapper`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/predeploys/OVM_ExecutionManagerWrapper.sol)
-This is the one contract on L2 that can call another contract without having to
-go through virtualization. It is used to call 
-[OVM_ExecutionManager](#ovm-executionmanager).
-
-
-### [`ERC1820Registry`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/predeploys/ERC1820Registry.sol)
-[ERC1820](https://eips.ethereum.org/EIPS/eip-1820) specifies a registry
-service that lets addresses report what interfaces they support and ask 
-about other addresses. 
-
 ### [`Lib_AddressManager`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/libraries/resolver/Lib_AddressManager.sol)
 This is a library that stores the mappings between names and their addresses.
 It is used by [`OVM_L1CrossDomainMessenger`](#ovm-l1crossdomainmessenger).
-
-
-## Account Contracts
-
-OVM Account contracts are redeployable contracts layer-2 contracts which can represent a user and provide a form of 'account abstraction'.
-
-<!--
-**Planned section outline**
-- **TODO:** figure out how much of this needs to go into "integration" section
-- explanation of createEOA/nonce opcodes which offer backwards compatibility
-- Transaction formats (ethSign vs RLP)
-- somewhere this should say it's upgradeable
-- Fees (Is this where fee discussion should go? Or with RPC docs?)
- -->
-
-### [`OVM_ProxyEOA`](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts/contracts/optimistic-ethereum/OVM/predeploys/OVM_ProxyEOA.sol)
-The Proxy EOA contract uses a delegate call to execute the logic in an implementation contract. In combination with the logic implemented in the ECDSA Contract Account, this enables a form of upgradable  'account abstraction' on layer 2.
-
