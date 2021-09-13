@@ -28,7 +28,6 @@ Our custom JSON-RPC methods are highly subject to change.
 We generally do not recommend relying on these JSON-RPC methods for the moment.
 :::
 
-<!--
 ### `eth_getBlockRange`
 
 ::: tip Deprecation Notice
@@ -49,7 +48,6 @@ Like `eth_getBlockByNumber` but accepts a range of block numbers instead of just
 
 An array of blocks (see [eth_getBlockByHash](https://eth.wiki/json-rpc/API#eth_getblockbyhash)).
 
--->
 
 ### `rollup_getInfo`
 

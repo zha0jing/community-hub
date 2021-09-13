@@ -14,7 +14,7 @@ on what we think is going to happen, and some things will turn out to be differe
 
 ## Regenesis
 
-We are still in alpha. In order to quickly iterate and make significant changes to the 
+We are still in beta. In order to quickly iterate and make significant changes to the 
 Optimistic Ethereum network, we will need to perform a type of upgrade called a "regenesis". 
 During a regenesis, the state of the chain is snapshotted (including all users' nonces, 
 token balances, contract code, and contract storage) and a new chain is spun up from that 
