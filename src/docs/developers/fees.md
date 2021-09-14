@@ -33,6 +33,8 @@ between L1 and L2. Every Optimistic Ethereum transaction has two costs:
    * `calldataGas` is the standard Ethereum cost, 4 gas for each zero byte, 16
      gas for every byte with a different value
 
+You can deposit ETH via https://gateway.optimism.io/ on both Kovan or Mainnet. Soon you will 
+be able to also deposit ETH for slightly cheaper via https://hop.exchange/
 
 ## How is the cost presented to the user?
 
