@@ -21,7 +21,7 @@ You can see the documentation table of contents on the left sidebar.
 
 ::: tip Work in Progress™
 Our documentation, like most things in the world, is imperfect. 
-If you have questions or feel like something is missing feel free to ask in our [Discord server](https://discord.optimism.io) where we (and our awesome community) are actively responding, or [open an issue](https://github.com/ethereum-optimism/community-hub/issues) in the GitHub repo for this site.
+If you have questions or feel like something is missing, feel free to ask in our [Discord server](https://discord.optimism.io) where we (and our awesome community) are actively responding, or [open an issue](https://github.com/ethereum-optimism/community-hub/issues) in the GitHub repo for this site.
 :::
 
 
